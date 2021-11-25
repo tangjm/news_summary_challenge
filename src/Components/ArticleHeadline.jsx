@@ -1,13 +1,20 @@
 import PropTypes from 'prop-types';
 
-const ArticleHeadline = ({ headline }) => {
+const ArticleHeadline = ({ headline, id, selectArticle }) => {
+
+	const handleClick = () => {
+		selectArticle(id);
+	}
+
 	return (
-		<a href="/"><h2>{headline}</h2></a>
+		<a href="/" onClick={() => handleClick()}><h2>{headline}</h2></a>
 	)
 }
 
 ArticleHeadline.propTypes = {
-	headline: PropTypes.string
+	headline: PropTypes.string,
+	id: PropTypes.string,
+	selectArticle: PropTypes.func
 }
 
 export default ArticleHeadline;

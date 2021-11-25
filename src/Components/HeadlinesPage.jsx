@@ -2,7 +2,7 @@ import PropTypes from 'prop-types';
 import ArticleBlock from './ArticleBlock';
 import ArticleModel from '../utils/ArticleModel';
 
-const HeadlinesPage = ({ articleArr }) => {
+const HeadlinesPage = ({ articleArr, selectArticle }) => {
 	// extract out 
 	// 1. webTitle
 	// 2. thumnail Image
@@ -15,7 +15,7 @@ const HeadlinesPage = ({ articleArr }) => {
 			currentArticle.fields.thumbnail,
 			currentArticle.fields.bodyText
 		);
-		return <ArticleBlock key={currentArticle.id} article={articleObj} />;
+		return <ArticleBlock key={currentArticle.id} article={articleObj} selectArticle={selectArticle} />;
 	})
 	return (
 		<>
@@ -41,7 +41,8 @@ HeadlinesPage.propTypes = {
 				bodyText: PropTypes.string
 			})
 		})
-	)
+	),
+	selectArticle: PropTypes.func
 }
 
 export default HeadlinesPage;

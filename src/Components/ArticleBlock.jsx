@@ -4,23 +4,23 @@ import ArticleModel from '../utils/ArticleModel';
 import ArticleTitle from "./ArticleTitle";
 import ArticleHeadline from "./ArticleHeadline";
 
-const ArticleBlock = ({ article }) => {
-	const thumbnail = article.thumbnail;
-	const headline = article.title;
+const ArticleBlock = ({ article, selectArticle }) => {
 
-	// const tempThumnail = "https://cdn-media-1.freecodecamp.org/images/1*y6C4nSvy2Woe0m7bWEn4BA.png";
+	const { id, thumbnail, headline } = article;
+
 	return (
 		<div>
 			<img src={thumbnail} alt="article thumnail" />
-			<ArticleHeadline headline={headline} />
+			<ArticleHeadline headline={headline} id={id} selectArticle={selectArticle} />
 
-			{/* <ArticleTitle /> */}
+			<ArticleTitle headline={headline} id={id} selectArticle={selectArticle} />
 		</div>
 	)
 }
 
 ArticleBlock.propTypes = {
-	article: PropTypes.instanceOf(ArticleModel)
+	article: PropTypes.instanceOf(ArticleModel),
+	selectArticle: PropTypes.func
 }
 
 export default ArticleBlock;

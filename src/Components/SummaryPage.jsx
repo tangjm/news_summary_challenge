@@ -7,15 +7,8 @@ import ArticleModel from '../utils/ArticleModel';
 
 const SummaryPage = ({ articleArr }) => {
 
-	// find the article with 'id' among the array of articles
-	// extract its title, thumbnail and bodyText
-	// pass them to ArticleBlock and ArticleText
-
-	// /search?api-key=9b1e6ba1-be68-477c-93c3-557596c7121f&show-fields=thumbnail,bodyText&type=article
-	// /search?api-key=9b1e6ba1-be68-477c-93c3-557596c7121f&show-fields=thumbnail,bodyText&ids={}
-
 	const { id } = useParams();
-	console.log(id);
+
 	const articleToDisplay = articleArr.find(currentArticle => currentArticle.id === id);
 	const articleObj = articleToDisplay ? new ArticleModel(articleToDisplay.id,
 		articleToDisplay.webTitle,
@@ -25,10 +18,10 @@ const SummaryPage = ({ articleArr }) => {
 	) : { error: "Unexpected article object" };
 
 	return (
-		<>
+		<div>
 			<ArticleSummaryBlock article={articleObj} />
 			<ArticleText bodyText={articleObj.text ?? articleObj.error} />
-		</>
+		</div>
 	)
 }
 

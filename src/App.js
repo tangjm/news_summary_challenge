@@ -8,16 +8,13 @@ import SummaryPage from './Components/SummaryPage';
 
 function App() {
   const [articles, setArticles] = useState([]);
-  const [isSummary, setIsSummary] = useState(false);
-
 
   const jsonServerUrl = `http://localhost:4000/data`;
-  // console.log(articles[0].id);
-  const developerKey = process.env.REACT_APP_GUARDIAN_API_KEY;
 
+  const developerKey = process.env.REACT_APP_GUARDIAN_API_KEY;
   const guardianApiUrl = `https://content.guardianapis.com/search?api-key=${developerKey}&type=article&show-fields=thumbnail,bodyText`;
   console.log(guardianApiUrl);
-  // const guardianUrlSingle = guardianUrl.concat("ids:id");
+
   const apiUrl = jsonServerUrl;
   useEffect(() => {
     fetch(apiUrl)
@@ -43,10 +40,10 @@ function App() {
       <Router>
         <Switch>
           <Route exact path="/">
-            <HeadlinesPage articleArr={articles} isSummary={isSummary} setIsSummary={setIsSummary} />
+            <HeadlinesPage articleArr={articles} />
           </Route>
           <Route path="/summary/:id">
-            <SummaryPage articleArr={articles} isSummary={isSummary} setIsSummary={setIsSummary} />
+            <SummaryPage articleArr={articles} />
           </Route>
         </Switch>
       </Router>

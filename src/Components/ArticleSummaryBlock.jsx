@@ -8,10 +8,10 @@ const ArticleSummaryBlock = ({ article }) => {
 	const { id, headline, url, thumbnail } = article;
 
 	return (
-		<div>
+		<>
 			<img src={thumbnail} alt="article thumnail" />
 			<ArticleTitle headline={headline} id={id} url={url} />
-		</div>
+		</>
 	)
 }
 
@@ -22,8 +22,6 @@ ArticleSummaryBlock.propTypes = {
 			error: PropTypes.string
 		})
 	]),
-	isSummary: PropTypes.bool,
-	setIsSummary: PropTypes.func
 }
 
 export default ArticleSummaryBlock;

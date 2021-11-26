@@ -4,19 +4,14 @@ import ArticleModel from '../utils/ArticleModel';
 import ArticleTitle from "./ArticleTitle";
 import ArticleHeadline from "./ArticleHeadline";
 
-const ArticleBlock = ({ article, displaySingleSummary }) => {
+const ArticleBlock = ({ article, displaySummary }) => {
 
 	const { id, headline, url, thumbnail } = article;
 
-	// if displaySummary = true {
-	// 	render title and text
-	// } else {
-	// 	render only headline
-	// }
 	return (
 		<div>
 			<img src={thumbnail} alt="article thumnail" />
-			{displaySingleSummary ?
+			{displaySummary ?
 				<ArticleTitle headline={headline} url={url} />
 				:
 				<ArticleHeadline headline={headline} id={id} />
@@ -27,9 +22,7 @@ const ArticleBlock = ({ article, displaySingleSummary }) => {
 
 ArticleBlock.propTypes = {
 	article: PropTypes.instanceOf(ArticleModel),
-	displaySummary: PropTypes.bool,
-	setDisplaySummary: PropTypes.func,
-	displaySingleSummary: PropTypes.bool
+	displaySummary: PropTypes.bool
 }
 
 export default ArticleBlock;

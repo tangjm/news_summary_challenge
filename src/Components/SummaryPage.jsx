@@ -1,27 +1,18 @@
 import PropTypes from 'prop-types';
-import { useParams, useLocation } from 'react-router';
+import { useParams, useLocation } from 'react-router-dom';
 
 import ArticleBlock from './ArticleBlock';
 import ArticleText from './ArticleText';
 import ArticleModel from '../utils/ArticleModel';
 
-const SummaryPage = props => {
+const SummaryPage = ({ articleArr }) => {
 
-	// find the article with 'id' among the array of articles
-	// extract its title, thumbnail and bodyText
-	// pass them to ArticleBlock and ArticleText
-
-	// /search?api-key=9b1e6ba1-be68-477c-93c3-557596c7121f&show-fields=thumbnail,bodyText&type=article
-	// /search?api-key=9b1e6ba1-be68-477c-93c3-557596c7121f&show-fields=thumbnail,bodyText&ids={}
-	const { articleArr, displaySummary, setDisplaySummary } = props;
-
-
+	const articles = articleArr;
 	const { state } = useLocation();
-
 	const { id } = useParams();
-	// console.log(id);
-	const articleToDisplay = articleArr.find(currentArticle => currentArticle.id === id);
-	const articleObj = articleToDisplay ? new ArticleModel(articleToDisplay.id,
+
+	const articleToDisplay = articles.find(currentArticle => currentArticle.id === id);
+	const article = articleToDisplay ? new ArticleModel(articleToDisplay.id,
 		articleToDisplay.webTitle,
 		articleToDisplay.webUrl,
 		articleToDisplay.fields.thumbnail,
@@ -30,8 +21,8 @@ const SummaryPage = props => {
 
 	return (
 		<>
-			<ArticleBlock article={articleObj} displaySummary={displaySummary} setDisplaySummary={setDisplaySummary} displaySingleSummary={state.displaySingleSummary} />
-			<ArticleText bodyText={articleObj.text ?? articleObj.error} />
+			<ArticleBlock article={article} displaySummary={state.displaySummary} />
+			<ArticleText bodyText={article?.text ?? article.error} />
 		</>
 	)
 }
@@ -56,8 +47,6 @@ SummaryPage.propTypes = {
 			pillarName: PropTypes.string
 		})
 	),
-	displaySummary: PropTypes.bool,
-	setDisplaySummary: PropTypes.func
 }
 
 export default SummaryPage;

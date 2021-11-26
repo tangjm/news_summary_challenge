@@ -2,29 +2,25 @@ import PropTypes from 'prop-types';
 import ArticleBlock from './ArticleBlock';
 import ArticleModel from '../utils/ArticleModel';
 
-const HeadlinesPage = ({ articleArr, displaySummary, setDisplaySummary }) => {
-	// extract out 
-	// 1. webTitle
-	// 2. thumnail Image
-	// 3. bodyText
-	// 4. id
+const HeadlinesPage = ({ articleArr }) => {
 
-	const articleArrFormatted = articleArr.map(currentArticle => {
-		const articleObj = new ArticleModel(currentArticle.id,
+	const articles = articleArr;
+	const articleArrFormatted = articles.map(currentArticle => {
+		const article = new ArticleModel(currentArticle.id,
 			currentArticle.webTitle,
 			currentArticle.webUrl,
 			currentArticle.fields.thumbnail,
 			currentArticle.fields.bodyText
 		);
-		return <ArticleBlock key={currentArticle.id} article={articleObj} displaySummary={displaySummary} setDisplaySummary={setDisplaySummary} />;
-	})
+		return <ArticleBlock key={article.id} article={article} />;
+	});
+
 	return (
 		<>
 			{articleArrFormatted}
 		</>
 	)
 }
-
 
 HeadlinesPage.propTypes = {
 	articlesArr: PropTypes.arrayOf(
@@ -46,8 +42,6 @@ HeadlinesPage.propTypes = {
 			pillarName: PropTypes.string
 		})
 	),
-	displaySummary: PropTypes.bool,
-	setDisplaySummary: PropTypes.func
 }
 
 export default HeadlinesPage;

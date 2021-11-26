@@ -3,7 +3,7 @@ import PropTypes from 'prop-types';
 const ArticleTitle = ({ headline, url }) => {
 	return (
 		<a href={url} target="_blank" rel="noreferrer">
-			<h2>{headline}</h2>
+			<h1>{headline}</h1>
 		</a>
 	)
 }

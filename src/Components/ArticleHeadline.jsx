@@ -1,7 +1,7 @@
 import PropTypes from 'prop-types';
 import { NavLink } from 'react-router-dom';
 
-const ArticleHeadline = ({ headline, id }) => {
+const ArticleHeadline = ({ headline, id, setDisplaySummary }) => {
 
 	// const handleClick = () => {
 	// 	setIsSummary(false);
@@ -11,15 +11,23 @@ const ArticleHeadline = ({ headline, id }) => {
 	// id = id.replace(/\//g, "");
 	console.log(id);
 	return (
-		<NavLink to={`/summary/${id}`} className="link">
+		<NavLink to={{
+			pathname: `/summary/${id}`,
+			state: {
+				displaySingleSummary: true
+			}
+		}} className="link"
+		// onClick={() => setDisplaySummary(true)}
+		>
 			<h2>{headline}</h2>
-		</NavLink>
+		</NavLink >
 	)
 }
 
 ArticleHeadline.propTypes = {
 	headline: PropTypes.string,
 	id: PropTypes.string,
+	setDisplaySummary: PropTypes.func
 }
 
 export default ArticleHeadline;

@@ -8,7 +8,7 @@ import SummaryPage from './Components/SummaryPage';
 
 function App() {
   const [articles, setArticles] = useState([]);
-  const [isSummary, setIsSummary] = useState(false);
+  const [displaySummary, setDisplaySummary] = useState(false);
 
 
   const jsonServerUrl = `http://localhost:4000/data`;
@@ -43,10 +43,10 @@ function App() {
       <Router>
         <Switch>
           <Route exact path="/">
-            <HeadlinesPage articleArr={articles} isSummary={isSummary} setIsSummary={setIsSummary} />
+            <HeadlinesPage articleArr={articles} displaySummary={displaySummary} setDisplaySummary={setDisplaySummary} />
           </Route>
           <Route path="/summary/:id">
-            <SummaryPage articleArr={articles} isSummary={isSummary} setIsSummary={setIsSummary} />
+            <SummaryPage articleArr={articles} displaySummary={displaySummary} setDisplaySummary={setDisplaySummary} />
           </Route>
         </Switch>
       </Router>

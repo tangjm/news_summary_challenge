@@ -2,7 +2,7 @@ import PropTypes from 'prop-types';
 import ArticleBlock from './ArticleBlock';
 import ArticleModel from '../utils/ArticleModel';
 
-const HeadlinesPage = ({ articleArr, isSummary, setIsSummary }) => {
+const HeadlinesPage = ({ articleArr, displaySummary, setDisplaySummary }) => {
 	// extract out 
 	// 1. webTitle
 	// 2. thumnail Image
@@ -16,7 +16,7 @@ const HeadlinesPage = ({ articleArr, isSummary, setIsSummary }) => {
 			currentArticle.fields.thumbnail,
 			currentArticle.fields.bodyText
 		);
-		return <ArticleBlock key={currentArticle.id} article={articleObj} isSummary={isSummary} setIsSummary={setIsSummary} />;
+		return <ArticleBlock key={currentArticle.id} article={articleObj} displaySummary={displaySummary} setDisplaySummary={setDisplaySummary} />;
 	})
 	return (
 		<>
@@ -46,8 +46,8 @@ HeadlinesPage.propTypes = {
 			pillarName: PropTypes.string
 		})
 	),
-	isSummary: PropTypes.bool,
-	setIsSummary: PropTypes.func
+	displaySummary: PropTypes.bool,
+	setDisplaySummary: PropTypes.func
 }
 
 export default HeadlinesPage;

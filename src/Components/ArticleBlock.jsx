@@ -6,6 +6,10 @@ import ArticleHeadline from "./ArticleHeadline";
 
 const ArticleBlock = ({ article, displaySummary }) => {
 
+	if (article.hasOwnProperty("error")) {
+		return <div>{article.error}</div>;
+	}
+
 	const { id, title, url, thumbnail } = article;
 
 	return (
@@ -21,7 +25,10 @@ const ArticleBlock = ({ article, displaySummary }) => {
 }
 
 ArticleBlock.propTypes = {
-	article: PropTypes.instanceOf(ArticleModel),
+	article: PropTypes.oneOfType([
+		PropTypes.instanceOf(ArticleModel),
+		PropTypes.exact({ error: PropTypes.string })
+	]),
 	displaySummary: PropTypes.bool
 }
 

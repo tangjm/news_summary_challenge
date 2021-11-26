@@ -6,15 +6,15 @@ import ArticleHeadline from "./ArticleHeadline";
 
 const ArticleBlock = ({ article, displaySummary }) => {
 
-	const { id, headline, url, thumbnail } = article;
+	const { id, title, url, thumbnail } = article;
 
 	return (
 		<div>
 			<img src={thumbnail} alt="article thumnail" />
 			{displaySummary ?
-				<ArticleTitle headline={headline} url={url} />
+				<ArticleTitle headline={title} url={url} />
 				:
-				<ArticleHeadline headline={headline} id={id} />
+				<ArticleHeadline headline={title} id={id} />
 			}
 		</div>
 	)

@@ -9,9 +9,8 @@ import SummaryPage from './Components/SummaryPage';
 function App() {
   const [articles, setArticles] = useState([]);
 
-  const developerKey = process.env.REACT_APP_GUARDIAN_API_KEY;
-
   // const jsonServerUrl = `http://localhost:4000/data`;
+  const developerKey = process.env.REACT_APP_GUARDIAN_API_KEY;
   const guardianApiUrl = `https://content.guardianapis.com/search?api-key=${developerKey}&type=article&show-fields=thumbnail,bodyText`;
   const apiUrl = guardianApiUrl;
 
@@ -24,9 +23,9 @@ function App() {
 
   const getArticles = async () => {
     try {
-      const response = await axios.get(apiUrl);
-      if (response.data) {
-        const articlesFound = response.data.response.results;
+      const res = await axios.get(apiUrl);
+      if (res.data) {
+        const articlesFound = res.data.response.results;
         return replaceArticleIds(articlesFound);
       }
       return new Error("Something went wrong!");
@@ -41,23 +40,6 @@ function App() {
       setArticles(await getArticles());
     }
     getData();
-    // Fetch API
-    // fetch(apiUrl)
-    //   .then(response => {
-    //     if (response.ok) {
-    //       return response.json();
-    //     }
-    //     throw new Error("Something went wrong!");
-    //   })
-    //   .then(jsonObj => {
-    //     const articleObjArr = jsonObj.response.results.map(articleObj => {
-    //       const newId = articleObj.id.replace(/\//g, "");
-    //       return { ...articleObj, id: newId };
-    //     });
-    //     setArticles(articleObjArr);
-    //   })
-    //   .catch(e => console.log(e));
-
   }, []);
 
   return (

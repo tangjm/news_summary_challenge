@@ -1,34 +1,55 @@
+import { BrowserRouter as Router, Switch, Route } from 'react-router-dom';
+
 import './App.css';
 import { useState, useEffect } from 'react';
-import sampleArticles from './utils/sampleArticles.json';
 
 import HeadlinesPage from './Components/HeadlinesPage';
 import SummaryPage from './Components/SummaryPage';
 
 function App() {
   const [articles, setArticles] = useState([]);
-  const [articleId, setArticleId] = useState("");
+  const [isSummary, setIsSummary] = useState(false);
 
-  const selectArticle = id => setArticleId(id);
 
+  const jsonServerUrl = `http://localhost:4000/data`;
+  // console.log(articles[0].id);
+  const developerKey = process.env.REACT_APP_GUARDIAN_API_KEY;
+
+  const guardianApiUrl = `https://content.guardianapis.com/search?api-key=${developerKey}&type=article&show-fields=thumbnail,bodyText`;
+  console.log(guardianApiUrl);
+  // const guardianUrlSingle = guardianUrl.concat("ids:id");
+  const apiUrl = jsonServerUrl;
   useEffect(() => {
-    fetch("http://localhost:4000/response")
+    fetch(apiUrl)
       .then(response => {
         if (response.ok) {
           return response.json();
         }
         throw new Error("Something went wrong!");
       })
-      .then(jsonObj => setArticles(jsonObj.results))
+      .then(jsonObj => {
+        const articleObjArr = jsonObj.response.results.map(articleObj => {
+          const newId = articleObj.id.replace(/\//g, "");
+          return { ...articleObj, id: newId };
+        });
+        setArticles(articleObjArr);
+      })
       .catch(e => console.log(e));
 
   }, []);
 
-
   return (
     <div className="App">
-      <HeadlinesPage articleArr={articles} selectArticle={selectArticle} />
-      <SummaryPage articleArr={articles} selectArticle={selectArticle} articleId={articleId} />
+      <Router>
+        <Switch>
+          <Route exact path="/">
+            <HeadlinesPage articleArr={articles} isSummary={isSummary} setIsSummary={setIsSummary} />
+          </Route>
+          <Route path="/summary/:id">
+            <SummaryPage articleArr={articles} isSummary={isSummary} setIsSummary={setIsSummary} />
+          </Route>
+        </Switch>
+      </Router>
     </div>
   );
 }

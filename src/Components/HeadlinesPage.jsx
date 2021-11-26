@@ -2,7 +2,7 @@ import PropTypes from 'prop-types';
 import ArticleBlock from './ArticleBlock';
 import ArticleModel from '../utils/ArticleModel';
 
-const HeadlinesPage = ({ articleArr, selectArticle }) => {
+const HeadlinesPage = ({ articleArr, isSummary, setIsSummary }) => {
 	// extract out 
 	// 1. webTitle
 	// 2. thumnail Image
@@ -12,10 +12,11 @@ const HeadlinesPage = ({ articleArr, selectArticle }) => {
 	const articleArrFormatted = articleArr.map(currentArticle => {
 		const articleObj = new ArticleModel(currentArticle.id,
 			currentArticle.webTitle,
+			currentArticle.webUrl,
 			currentArticle.fields.thumbnail,
 			currentArticle.fields.bodyText
 		);
-		return <ArticleBlock key={currentArticle.id} article={articleObj} selectArticle={selectArticle} />;
+		return <ArticleBlock key={currentArticle.id} article={articleObj} isSummary={isSummary} setIsSummary={setIsSummary} />;
 	})
 	return (
 		<>
@@ -39,10 +40,14 @@ HeadlinesPage.propTypes = {
 			fields: PropTypes.exact({
 				thumbnail: PropTypes.string,
 				bodyText: PropTypes.string
-			})
+			}),
+			isHosted: PropTypes.bool,
+			pillarId: PropTypes.string,
+			pillarName: PropTypes.string
 		})
 	),
-	selectArticle: PropTypes.func
+	isSummary: PropTypes.bool,
+	setIsSummary: PropTypes.func
 }
 
 export default HeadlinesPage;

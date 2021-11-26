@@ -85,4 +85,15 @@ describe(`ArticleBlock test suite`, () => {
 			expect(testThumbnail).toHaveAttribute("src", testArticle.thumbnail)
 		})
 	})
+
+	describe(`Tests for when an error object is received`, () => {
+		const testArticle = { error: "error message" };
+		const displaySummary = false;
+
+		render(<ArticleBlock article={testArticle} displaySummary={displaySummary} />);
+
+		const testErrorObj = screen.getByText(/error message/i);
+
+		expect(testErrorObj).toBeInTheDocument();
+	});
 })

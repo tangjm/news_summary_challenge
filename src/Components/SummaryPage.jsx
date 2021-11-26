@@ -21,7 +21,7 @@ const SummaryPage = ({ articleArr }) => {
 
 	return (
 		<>
-			<ArticleBlock article={article} displaySummary={state.displaySummary} />
+			<ArticleBlock article={article} displaySummary={state?.displaySummary} />
 			<ArticleText bodyText={article?.text ?? article.error} />
 		</>
 	)

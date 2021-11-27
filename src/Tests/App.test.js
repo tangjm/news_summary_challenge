@@ -17,7 +17,7 @@ describe(`App.js test suite`, () => {
       render(<App />);
     })
 
-    const testApp = screen.getByText(/Power of the Dog to Parasite seven best films to watch on TV this week/i);
+    const testApp = screen.getByText(/‘A bit pushed’: Enid Blyton letters reveal strain of work and motherhood/i);
 
     expect(testApp).toBeInTheDocument();
     expect(testApp).toContainElement("h2");

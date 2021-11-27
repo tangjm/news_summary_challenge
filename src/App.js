@@ -1,7 +1,7 @@
+import axios from 'axios';
 import { BrowserRouter as Router, Switch, Route } from 'react-router-dom';
 import { useState, useEffect } from 'react';
 import './App.css';
-import axios from 'axios';
 
 import HeadlinesPage from './Components/HeadlinesPage';
 import SummaryPage from './Components/SummaryPage';
@@ -10,11 +10,17 @@ function App() {
   const [articles, setArticles] = useState([]);
 
   const jsonServer = `http://localhost:4000/data`;
-  const developerKey = process.env.REACT_APP_GUARDIAN_API_KEY;
-  const guardianApi = `https://content.guardianapis.com/search?api-key=${developerKey}&type=article&show-fields=thumbnail,bodyText`;
-  const apiArr = [jsonServer, guardianApi];
-  const apiUrl = apiArr[1];
 
+  // Guardian API
+  const developerKey = process.env.REACT_APP_GUARDIAN_API_KEY;
+  const baseUrl = `https://content.guardianapis.com`;
+  const [section, type, fields] = ["world", "article", "thumbnail,bodyText"];
+  const guardianApi = baseUrl.concat(`/search?api-key=${developerKey}&type=${type}&section=${section}&show-fields=${fields}`);
+
+  const selectServer = [jsonServer, guardianApi];
+  const apiUrl = selectServer[1];
+
+  // Formatting fetched data
   const replaceArticleIds = articleArr => {
     return articleArr.map(articleObj => {
       const newId = articleObj.id.replace(/\//g, "");
@@ -33,6 +39,7 @@ function App() {
     });
   }
 
+  // API request
   const getArticles = async () => {
     try {
       const res = await axios.get(apiUrl);

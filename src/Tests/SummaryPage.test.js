@@ -31,11 +31,6 @@ describe(`SummaryPage test suite`, () => {
 		);
 	})
 
-	afterEach(() => {
-		testArticleId = null;
-		articles = null;
-	})
-
 	test(`it should render an ArticleBlock`, () => {
 		const testArticleBlock = screen.getByText(/mock articleblock component/i);
 

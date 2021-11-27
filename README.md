@@ -56,6 +56,9 @@ I added a BrowserRouter to the App component which had two Routes: HeadlinePage 
 
 The SummaryPage's route path was parameterised to ensure that the clicked ArticleHeadline would be the rendered article.
 
+8. Refactoring, testing, optimisation
+
+Removed ArticleTitle component so that we are reusing the ArticleHeadline component which also takes care of conditional rendering. 
 
 [^1]: [Further reflections](https://github.com/tangjm/news-summary-challenge/blob/main/Reflection.md)
 

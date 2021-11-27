@@ -9,10 +9,10 @@ import SummaryPage from './Components/SummaryPage';
 function App() {
   const [articles, setArticles] = useState([]);
 
-  const jsonServerUrl = `http://localhost:4000/data`;
+  const jsonServer = `http://localhost:4000/data`;
   const developerKey = process.env.REACT_APP_GUARDIAN_API_KEY;
-  const guardianApiUrl = `https://content.guardianapis.com/search?api-key=${developerKey}&type=article&show-fields=thumbnail,bodyText`;
-  const apiUrl = jsonServerUrl;
+  const guardianApi = `https://content.guardianapis.com/search?api-key=${developerKey}&type=article&show-fields=thumbnail,bodyText`;
+  const apiUrl = jsonServer;
 
   const replaceArticleIds = articleArr => {
     return articleArr.map(articleObj => {

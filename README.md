@@ -1,137 +1,58 @@
-# News Summary Challenge
+### **Installation**
 
-### Task
+1. Fork and clone the forked version of this respository
+2. Open up your cloned local repository and in your terminal type the following command:
 
-You'll test-drive a single page application in React that send requests to the Guardian API to get Headline and Article data and to the Aylien API to summarise text. 
+- `npm i` to install the required dependencies
 
-### Serving your app
+3. To run the News Summary App
 
-You'll use React's toolchain to take care of serving your HTML, CSS and JavaScript files.  
+- cd to the folder containing package.json
+- `serve -s build` to run the build
 
-## User Stories
+### **Testing**
 
-Some of these stories will need decomposing if they seem too large.
+Use `npm test` to run tests in Test folder.
 
-### Standard
-```
-As a busy politician
-So I know what the big stories of the day are
-I can see all of today's headlines in one place
-```
+All tests should pass except for App.test.js. I'm still working on mocking the axios GET request to the Guardian API.
 
-```
-As a busy politician
-So that I have something nice to look at
-I can see a relevant picture to illustrate each news article when I browse headlines
-```
+### **Steps taken**
 
-### Extended
+I followed Facebook's recommended approach quite closely.
 
-```
-As a busy politician
-So that I can get an in depth understanding of a very important story
-I can click a news headline to see a summary and a photo of the news article
-```
+1. Mock was provided
+2. Created a component hierarchy
 
-```
-As a busy politician
-So I can get a few more details about an important story
-I can see click a news article summary title which links to the original article
-```
+![UI Components](images/component-hierarchy.jpg)
+![Component Hierarchy](images/component-hierarchy2.jpg)
 
-```
-As a busy politician
-Just in case my laptop breaks
-I can read the site comfortably on my phone
-```
+3. Build a static version
 
-```
-As a busy politician
-To make my news reading more fun
-I can see whizzy animations in the app
-```
+Then I build the static version of the website. I also wrote snapshot tests but later realised that they were redundant as all components had props or state.
 
-## Mockups
+4. Identify the minimal representation of UI state
 
-### Headlines page
+State is needed for the article array as it will need to reflect the latest news articles by the Guardian. 
 
-![Headlines page mockup](/images/news-summary-project-headlines-page-mockup.png)
+Boolean state might also be needed to tell the App component whether to render HeadlinesPage or SummaryPage and this would be updated when an ArticleHeadline is clicked by the user. (I had problems implementing this alongside the router so I ended up with a different solution that made use of the router instead of handling the state myself. This involved using the useLocation function from react-router-dom) [^1]
 
-### Article summary page
+5. Identify where your state should live
 
-![Article page mockup](/images/news-summary-project-article-page-mockup.png)
+Since the child components of the component hierarchy falling under both the HeadlinesPage and SummaryPage needed access to various data from the guardian API, I decided to add state to the App component.
 
-## API
+6. Add inverse data flow
 
-### API request rate limits and stubbing
+Wasn't needed in the end. 
 
-The Guardian and Aylien text summarisation APIs are severely rate-limited.
+7. Add routing
 
-**Please stub your tests so you don't exceed the daily limit.  Otherwise, all requests will be rejected and your app will stop working!**
+I added a BrowserRouter to the App component which had two Routes: HeadlinePage and SummmaryPage. 
 
-### Guardian API example
+The SummaryPage's route path was parameterised to ensure that the clicked ArticleHeadline would be the rendered article.
 
-**Please stub your tests to avoid exceeding the API rate limit**
 
-If you wanted to get the content of an article from the Guardian API, this is the cURL request you might make.  Notice how it has a query parameter for `api-key`.
+[^1]: [title](https://www.example.com)
 
-```sh
-# Search endpoint
-curl "https://content.guardianapis.com/search?q=coronavirus&show-fields=body&api-key=API_KEY"
-```
-```sh
-# Single Item endpoint
-curl "https://content.guardianapis.com/world/2021/mar/22/link-between-diabetes-and-coronavirus-infections?show-fields=body&api-key=API_KEY"
-```
 
-### Aylien text summarisation API example
 
-**Please stub your tests to avoid exceeding the API rate limit**
 
-If you wanted to use the Aylien API to summarise an article by Bret Victor, this is the cURL request you might make.  Notice how it has headers to authenticate with the Aylien API.
-
-```
-curl "https://api.aylien.com/api/v1/summarize?url=http://worrydream.com/MediaForThinkingTheUnthinkable/note.html" \
-  -H "X-AYLIEN-TextAPI-Application-ID: APPLICATION_ID" \
-  -H "X-AYLIEN-TextAPI-Application-Key: SECRET_APPLICATION_KEY"
-```
-
-## Resources
-
-* [Guardian newspaper API homepage](http://open-platform.theguardian.com/documentation/)
-* [Aylien text summary API docs](http://docs.aylien.com/docs/summarize)
-* cURL [man page](https://curl.haxx.se/docs/manpage.html)
-* [Hurl](https://www.hurl.it/), a web interface for sending HTTP requests
-
----
-
-# Getting Started with Create React App
-
-This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
-
-## Available Scripts
-
-In the project directory, you can run:
-
-### `npm start`
-
-Runs the app in the development mode.\
-Open [http://localhost:3000](http://localhost:3000) to view it in the browser.
-
-The page will reload if you make edits.\
-You will also see any lint errors in the console.
-
-### `npm test`
-
-Launches the test runner in the interactive watch mode.\
-See the section about [running tests](https://facebook.github.io/create-react-app/docs/running-tests) for more information.
-
-### `npm run build`
-
-Builds the app for production to the `build` folder.\
-It correctly bundles React in production mode and optimizes the build for the best performance.
-
-The build is minified and the filenames include the hashes.\
-Your app is ready to be deployed!
-
-See the section about [deployment](https://facebook.github.io/create-react-app/docs/deployment) for more information.

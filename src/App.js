@@ -9,10 +9,10 @@ import SummaryPage from './Components/SummaryPage';
 function App() {
   const [articles, setArticles] = useState([]);
 
-  // const jsonServerUrl = `http://localhost:4000/data`;
+  const jsonServerUrl = `http://localhost:4000/data`;
   const developerKey = process.env.REACT_APP_GUARDIAN_API_KEY;
   const guardianApiUrl = `https://content.guardianapis.com/search?api-key=${developerKey}&type=article&show-fields=thumbnail,bodyText`;
-  const apiUrl = guardianApiUrl;
+  const apiUrl = jsonServerUrl;
 
   const replaceArticleIds = articleArr => {
     return articleArr.map(articleObj => {
@@ -30,7 +30,7 @@ function App() {
       }
       return new Error("Something went wrong!");
     } catch (e) {
-      console.log(e);
+      console.log(e.message);
       return [];
     }
   }

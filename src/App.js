@@ -1,7 +1,7 @@
+import axios from 'axios';
 import { BrowserRouter as Router, Switch, Route } from 'react-router-dom';
-
-import './App.css';
 import { useState, useEffect } from 'react';
+import './App.css';
 
 import HeadlinesPage from './Components/HeadlinesPage';
 import SummaryPage from './Components/SummaryPage';
@@ -9,30 +9,56 @@ import SummaryPage from './Components/SummaryPage';
 function App() {
   const [articles, setArticles] = useState([]);
 
-  const jsonServerUrl = `http://localhost:4000/data`;
+  const jsonServer = `http://localhost:4000/data`;
 
+  // Guardian API
   const developerKey = process.env.REACT_APP_GUARDIAN_API_KEY;
-  const guardianApiUrl = `https://content.guardianapis.com/search?api-key=${developerKey}&type=article&show-fields=thumbnail,bodyText`;
-  console.log(guardianApiUrl);
+  const baseUrl = `https://content.guardianapis.com`;
+  const [section, type, fields] = ["world", "article", "thumbnail,bodyText"];
+  const guardianApi = baseUrl.concat(`/search?api-key=${developerKey}&type=${type}&section=${section}&show-fields=${fields}`);
 
-  const apiUrl = jsonServerUrl;
+  const selectServer = [jsonServer, guardianApi];
+  const apiUrl = selectServer[1];
+
+  // Formatting fetched data
+  const replaceArticleIds = articleArr => {
+    return articleArr.map(articleObj => {
+      const newId = articleObj.id.replace(/\//g, "");
+      return { ...articleObj, id: newId };
+    });
+  }
+
+  const keysNeeded = ["id", "webTitle", "webUrl", "fields"];
+
+  const filterArticleKeys = articleArr => {
+    return articleArr.map(articleObj => {
+      Object.keys(articleObj).forEach(key => {
+        if (!keysNeeded.includes(key)) delete articleObj[key];
+      })
+      return articleObj;
+    });
+  }
+
+  // API request
+  const getArticles = async () => {
+    try {
+      const res = await axios.get(apiUrl);
+      if (res.data) {
+        const articlesFound = res.data.response.results;
+        return filterArticleKeys(replaceArticleIds(articlesFound));
+      }
+      return new Error("Something went wrong!");
+    } catch (e) {
+      console.log(e.message);
+      return [];
+    }
+  }
+
   useEffect(() => {
-    fetch(apiUrl)
-      .then(response => {
-        if (response.ok) {
-          return response.json();
-        }
-        throw new Error("Something went wrong!");
-      })
-      .then(jsonObj => {
-        const articleObjArr = jsonObj.response.results.map(articleObj => {
-          const newId = articleObj.id.replace(/\//g, "");
-          return { ...articleObj, id: newId };
-        });
-        setArticles(articleObjArr);
-      })
-      .catch(e => console.log(e));
-
+    const getData = async () => {
+      setArticles(await getArticles());
+    }
+    getData();
   }, []);
 
   return (

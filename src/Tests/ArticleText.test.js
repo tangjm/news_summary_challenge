@@ -1,7 +1,13 @@
-import { render } from '@testing-library/react';
+import { render, screen } from '@testing-library/react';
 import ArticleText from '../Components/ArticleText';
 
-test(`Article Text matches snapshot`, () => {
-	const text = render(<ArticleText />);
-	expect(text).toMatchSnapshot();
+describe(`ArticleText test suite`, () => {
+	test(`it should render article text`, () => {
+		const testText = "Mock Article Text";
+
+		render(<ArticleText bodyText={testText} />);
+		const testParagraph = screen.getByText(testText);
+
+		expect(testParagraph).toBeInTheDocument();
+	})
 })

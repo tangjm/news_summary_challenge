@@ -3,7 +3,7 @@ import ArticleModel from '../utils/ArticleModel';
 
 import ArticleTitle from "./ArticleTitle";
 import ArticleHeadline from "./ArticleHeadline";
-import ArticleModel from '../utils/ArticleModel';
+
 
 const ArticleBlock = ({ article, displaySummary }) => {
 

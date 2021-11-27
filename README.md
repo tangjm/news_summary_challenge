@@ -1,9 +1,10 @@
-Meets all criteria bar the last one concerning animations
+# Meets all criteria bar the last one concerning animations
 
-### **Installation**
+### **Installation steps**
 
 1. Fork and clone the forked version of this respository
-2. Open your cloned local repository and in your terminal type the following command:
+2. Open your cloned local repository and ensure you are on the main branch
+3. In your terminal, type the following command:
 
 - `npm i` to install the required dependencies
 
@@ -12,7 +13,7 @@ Meets all criteria bar the last one concerning animations
 - Open your terminal and `cd` to or make sure you're in the folder containing package.json
 - `serve -s build` to run the build
 
-### **Testing**
+### **Testing guide**
 
 Use `npm test` to run tests in Test folder.
 

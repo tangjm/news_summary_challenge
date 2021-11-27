@@ -15,8 +15,11 @@ jest.mock(`../Components/ArticleText`, () => {
 	};
 });
 
+window.scrollTo = jest.fn();
+
 describe(`SummaryPage test suite`, () => {
-	test(`it should render an ArticleBlock`, () => {
+
+	beforeEach(() => {
 		const testArticleId = "testId";
 		const articles = sampleArticles.data.response.results;
 		articles[0].id = testArticleId;
@@ -26,25 +29,27 @@ describe(`SummaryPage test suite`, () => {
 				<SummaryPage articleArr={articles} />
 			</BrowserRouter>
 		);
+	})
 
+	afterEach(() => {
+		testArticleId = null;
+		articles = null;
+	})
+
+	test(`it should render an ArticleBlock`, () => {
 		const testArticleBlock = screen.getByText(/mock articleblock component/i);
 
 		expect(testArticleBlock).toBeInTheDocument();
 	});
 
 	test(`it should render ArticleText`, () => {
-		const testArticleId = "testId";
-		const articles = sampleArticles.data.response.results;
-		articles[0].id = testArticleId;
-
-		render(
-			<BrowserRouter>
-				<SummaryPage articleArr={articles} />
-			</BrowserRouter>
-		);
-
 		const testArticleText = screen.getByText(/mock articletext component/i);
 
 		expect(testArticleText).toBeInTheDocument();
 	})
+
+	test(`scrolls to top of new page after render`, () => {
+		expect(window.scrollTo).toHaveBeenCalled();
+	})
 })
+

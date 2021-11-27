@@ -23,24 +23,33 @@ const HeadlinesPage = ({ articleArr }) => {
 }
 
 HeadlinesPage.propTypes = {
-	articlesArr: PropTypes.arrayOf(
+	articleArr: PropTypes.arrayOf(
 		PropTypes.exact({
 			id: PropTypes.string,
-			type: PropTypes.string,
-			sectionId: PropTypes.string,
-			sectionName: PropTypes.string,
-			webPublicationDate: PropTypes.string,
 			webTitle: PropTypes.string,
 			webUrl: PropTypes.string,
-			apiUrl: PropTypes.string,
 			fields: PropTypes.exact({
 				thumbnail: PropTypes.string,
 				bodyText: PropTypes.string
-			}),
-			isHosted: PropTypes.bool,
-			pillarId: PropTypes.string,
-			pillarName: PropTypes.string
+			})
 		})
+		// PropTypes.exact({
+		// 	id: PropTypes.string,
+		// 	type: PropTypes.string,
+		// 	sectionId: PropTypes.string,
+		// 	sectionName: PropTypes.string,
+		// 	webPublicationDate: PropTypes.string,
+		// 	webTitle: PropTypes.string,
+		// 	webUrl: PropTypes.string,
+		// 	apiUrl: PropTypes.string,
+		// 	fields: PropTypes.exact({
+		// 		thumbnail: PropTypes.string,
+		// 		bodyText: PropTypes.string
+		// 	}),
+		// 	isHosted: PropTypes.bool,
+		// 	pillarId: PropTypes.string,
+		// 	pillarName: PropTypes.string
+		// })
 	),
 }
 

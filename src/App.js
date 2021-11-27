@@ -13,7 +13,7 @@ function App() {
   const developerKey = process.env.REACT_APP_GUARDIAN_API_KEY;
   const guardianApi = `https://content.guardianapis.com/search?api-key=${developerKey}&type=article&show-fields=thumbnail,bodyText`;
   const apiArr = [jsonServer, guardianApi];
-  const apiUrl = apiArr[0];
+  const apiUrl = apiArr[1];
 
   const replaceArticleIds = articleArr => {
     return articleArr.map(articleObj => {
@@ -22,12 +22,23 @@ function App() {
     });
   }
 
+  const keysNeeded = ["id", "webTitle", "webUrl", "fields"];
+
+  const filterArticleKeys = articleArr => {
+    return articleArr.map(articleObj => {
+      Object.keys(articleObj).forEach(key => {
+        if (!keysNeeded.includes(key)) delete articleObj[key];
+      })
+      return articleObj;
+    });
+  }
+
   const getArticles = async () => {
     try {
       const res = await axios.get(apiUrl);
       if (res.data) {
         const articlesFound = res.data.response.results;
-        return replaceArticleIds(articlesFound);
+        return filterArticleKeys(replaceArticleIds(articlesFound));
       }
       return new Error("Something went wrong!");
     } catch (e) {

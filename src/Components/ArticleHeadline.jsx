@@ -9,11 +9,8 @@ const ArticleHeadline = ({ headline, id }) => {
 	return (
 		<NavLink to={{
 			pathname: `/summary/${articleId}`,
-			state: {
-				displaySummary: true
-			}
-		}} className="link"
-		>
+			state: { displaySummary: true }
+		}} className="link" >
 			<h2>{articleTitle}</h2>
 		</NavLink >
 	)

@@ -23,10 +23,10 @@ I followed Facebook's recommended approach quite closely.
 1. Mock was provided
 2. Created a component hierarchy
 
-![UI Components](images/component-hierarchy.jpg)
-![Component Hierarchy](images/component-hierarchy2.jpg)
+![UI Components](https://github.com/tangjm/news-summary-challenge/blob/main/images/component-hierarchy.png)
+![Component Hierarchy](https://github.com/tangjm/news-summary-challenge/blob/main/images/component-hierarchy2.png)
 
-3. Build a static version
+1. Build a static version
 
 Then I build the static version of the website. I also wrote snapshot tests but later realised that they were redundant as all components had props or state.
 
@@ -51,7 +51,7 @@ I added a BrowserRouter to the App component which had two Routes: HeadlinePage 
 The SummaryPage's route path was parameterised to ensure that the clicked ArticleHeadline would be the rendered article.
 
 
-[^1]: [title](https://www.example.com)
+[^1]: [title](https://github.com/tangjm/news-summary-challenge/blob/main/Reflection.md)
 
 
 

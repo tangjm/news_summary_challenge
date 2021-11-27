@@ -4,7 +4,7 @@ import { BrowserRouter } from 'react-router-dom';
 
 describe(`ArticleHeadline test suite`, () => {
 
-	test(`it should render a h2 if no displaySummary is supplied`, () => {
+	test(`it should render a h2`, () => {
 		const testHeadline = "Mock Article Headline";
 		const testId = "Mock id";
 		const testUrl = "Mock URL";
@@ -19,29 +19,32 @@ describe(`ArticleHeadline test suite`, () => {
 		expect(textElement).toBeInTheDocument();
 	})
 
-	test(`it renders a h1 if displaySummary is true`, () => {
-		const testHeadline = "Mock Article Headline";
-		const testId = "Mock id";
-		const testUrl = "Mock URL";
-		const displaySummary = true;
+	describe(`if displaySummary is true or supplied as prop`, () => {
 
-		render(<ArticleHeadline headline={testHeadline} id={testId} url={testUrl} displaySummary={displaySummary} />);
+		test(`it renders a h1`, () => {
+			const testHeadline = "Mock Article Headline";
+			const testId = "Mock id";
+			const testUrl = "Mock URL";
+			const displaySummary = true;
 
-		const testTitle = screen.getByText(testHeadline);
+			render(<ArticleHeadline headline={testHeadline} id={testId} url={testUrl} displaySummary={displaySummary} />);
 
-		expect(testTitle).toBeInTheDocument();
-	})
+			const testTitle = screen.getByText(testHeadline);
 
-	test(`it renders a link with the correct href if displaySummary is "true"`, () => {
-		const testHeadline = "Mock Article Headline";
-		const testId = "Mock id";
-		const testUrl = "Mock URL";
-		const displaySummary = true;
+			expect(testTitle).toBeInTheDocument();
+		})
 
-		render(<ArticleHeadline headline={testHeadline} id={testId} url={testUrl} displaySummary={displaySummary} />);
+		test(`it renders a link with the correct href`, () => {
+			const testHeadline = "Mock Article Headline";
+			const testId = "Mock id";
+			const testUrl = "Mock URL";
+			const displaySummary = true;
 
-		const testLink = screen.getByRole("link");
+			render(<ArticleHeadline headline={testHeadline} id={testId} url={testUrl} displaySummary={displaySummary} />);
 
-		expect(testLink).toHaveAttribute("href", testUrl);
+			const testLink = screen.getByRole("link");
+
+			expect(testLink).toHaveAttribute("href", testUrl);
+		})
 	})
 })

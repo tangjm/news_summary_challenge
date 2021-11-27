@@ -12,7 +12,8 @@ function App() {
   const jsonServer = `http://localhost:4000/data`;
   const developerKey = process.env.REACT_APP_GUARDIAN_API_KEY;
   const guardianApi = `https://content.guardianapis.com/search?api-key=${developerKey}&type=article&show-fields=thumbnail,bodyText`;
-  const apiUrl = jsonServer;
+  const apiArr = [jsonServer, guardianApi];
+  const apiUrl = apiArr[0];
 
   const replaceArticleIds = articleArr => {
     return articleArr.map(articleObj => {

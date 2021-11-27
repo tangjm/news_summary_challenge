@@ -1,3 +1,5 @@
+Meets all criteria bar the last one concerning animations
+
 ### **Installation**
 
 1. Fork and clone the forked version of this respository
@@ -35,7 +37,9 @@ Then I built the static version of the website. I also wrote snapshot tests but 
 
 The article array that gets fetched from the API will need to be a state as it will need to stay up to date with the latest Guardian news articles.
 
-Boolean state might also be needed to tell the App component whether to render HeadlinesPage or SummaryPage and this would be updated when an ArticleHeadline is clicked by the user. (I had problems implementing this alongside the router so I ended up with a different solution that made use of the router instead of handling the state myself. This involved using the useLocation function from react-router-dom. See footnote for more on this.) [^1]
+Boolean state might also be needed to tell the App component whether to render HeadlinesPage or SummaryPage and this would be updated when an ArticleHeadline is clicked by the user. 
+
+I had problems implementing this alongside the router so I ended up with a different solution that made use of the router instead of handling the state myself. This involved using the useLocation function from react-router-dom. See footnote for more on this. [^1]
 
 5. Identifying where those states should live
 

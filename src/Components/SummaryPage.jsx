@@ -1,5 +1,6 @@
 import PropTypes from 'prop-types';
 import { useParams, useLocation } from 'react-router-dom';
+import { useEffect } from 'react';
 
 import ArticleBlock from './ArticleBlock';
 import ArticleText from './ArticleText';
@@ -10,6 +11,10 @@ const SummaryPage = ({ articleArr }) => {
 	const articles = articleArr;
 	const { state } = useLocation();
 	const { id } = useParams();
+
+	useEffect(() => {
+		window.scrollTo(0, 0);
+	}, [])
 
 	const articleToDisplay = articles.find(currentArticle => currentArticle.id === id);
 	const article = articleToDisplay ? new ArticleModel(articleToDisplay.id,

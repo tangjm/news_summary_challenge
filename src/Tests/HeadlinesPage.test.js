@@ -1,6 +1,6 @@
 import { render, screen } from '@testing-library/react';
 import HeadlinesPage from '../Components/HeadlinesPage';
-import sampleArticles from '../utils/sampleArticles.json';
+import mockArticles from '../utils/mockArticles.json';
 
 jest.mock(`../Components/ArticleBlock`, () => {
 	return function MockArticleBlock() {
@@ -10,7 +10,7 @@ jest.mock(`../Components/ArticleBlock`, () => {
 
 describe(`HeadlinesPage test suite`, () => {
 	test(`it renders the correct number of articles`, () => {
-		const testArticles = sampleArticles.data.response.results;
+		const testArticles = mockArticles.data.response.results;
 		const testArticlesLength = testArticles.length;
 
 		render(<HeadlinesPage articleArr={testArticles} />);

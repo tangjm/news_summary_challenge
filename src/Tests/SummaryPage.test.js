@@ -1,7 +1,7 @@
 import { render, screen } from '@testing-library/react';
 import { BrowserRouter } from 'react-router-dom';
 import SummaryPage from '../Components/SummaryPage';
-import sampleArticles from '../utils/sampleArticles.json';
+import mockArticles from '../utils/mockArticles.json';
 
 jest.mock(`../Components/ArticleBlock`, () => {
 	return function MockArticleBlock() {
@@ -21,7 +21,7 @@ describe(`SummaryPage test suite`, () => {
 
 	beforeEach(() => {
 		const testArticleId = "testId";
-		const articles = sampleArticles.data.response.results;
+		const articles = mockArticles.data.response.results;
 		articles[0].id = testArticleId;
 
 		render(

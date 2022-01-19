@@ -15,7 +15,12 @@ function App() {
   const developerKey = process.env.REACT_APP_GUARDIAN_API_KEY;
   const baseUrl = `https://content.guardianapis.com`;
   const [section, type, fields] = ["world", "article", "thumbnail,bodyText"];
-  const guardianApi = baseUrl.concat(`/search?api-key=${developerKey}&type=${type}&section=${section}&show-fields=${fields}`);
+  const guardianApi = baseUrl.concat(
+    "/search?api-key=" + developerKey +
+    "&type=" + type +
+    "&section=" + section +
+    "&show-fields=" + fields
+  );
 
   const selectServer = [jsonServer, guardianApi];
   const apiUrl = selectServer[1];

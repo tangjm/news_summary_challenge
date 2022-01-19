@@ -1,6 +1,6 @@
 import axios from 'axios';
 import { BrowserRouter as Router, Switch, Route } from 'react-router-dom';
-import { useState, useEffect } from 'react';
+import { useState, useEffect, useCallback, useMemo } from 'react';
 import './App.css';
 
 import HeadlinesPage from './Components/HeadlinesPage';
@@ -28,19 +28,19 @@ function App() {
     });
   }
 
-  const keysNeeded = ["id", "webTitle", "webUrl", "fields"];
+  const keysNeeded = useMemo(() => ["id", "webTitle", "webUrl", "fields"], []);
 
-  const filterArticleKeys = articleArr => {
+  const filterArticleKeys = useCallback(articleArr => {
     return articleArr.map(articleObj => {
       Object.keys(articleObj).forEach(key => {
         if (!keysNeeded.includes(key)) delete articleObj[key];
       })
       return articleObj;
     });
-  }
+  }, [keysNeeded]);
 
   // API request
-  const getArticles = async () => {
+  const getArticles = useCallback(async () => {
     try {
       const res = await axios.get(apiUrl);
       if (res.data) {
@@ -52,14 +52,14 @@ function App() {
       console.log(e.message);
       return [];
     }
-  }
+  }, [apiUrl, filterArticleKeys])
 
   useEffect(() => {
     const getData = async () => {
       setArticles(await getArticles());
     }
     getData();
-  }, []);
+  }, [getArticles]);
 
   return (
     <div className="App">

@@ -24,10 +24,8 @@ describe(`App.js test suite`, () => {
   })
 
   test(`it should make a get request`, async () => {
-    const resolve = "successfully resolved";
-
     await act(async () => {
-      axios.get.mockResolvedValueOnce(resolve);
+      axios.get.mockResolvedValueOnce(mockArticles);
     });
 
     await act(async () => {
@@ -35,7 +33,27 @@ describe(`App.js test suite`, () => {
       render(<App />);
     });
 
+    // Guardian API url that we are using in our App
+    const developerKey = process.env.REACT_APP_GUARDIAN_API_KEY;
+    const baseUrl = `https://content.guardianapis.com`;
+    const [section, type, fields] = ["world", "article", "thumbnail,bodyText"];
+    const guardianApi = baseUrl.concat(
+      "/search?api-key=" + developerKey +
+      "&type=" + type +
+      "&section=" + section +
+      "&show-fields=" + fields
+    );
+
     expect(axios.get).toHaveBeenCalledTimes(1);
+    expect(axios.get).toHaveBeenCalledWith(guardianApi);
+    // expect(getData).resolves.toEqual(mockArticles); This would be ideal to check the value that the axios.get request promise resolved to, but we can't import getData from App.js because its within the App function component's scope.
+  })
+
+  test(`it should render a HeadlinesPage`, async () => {
+    await act(async () => render(<App />));
+
+    const headlinesPage = screen.getByText(/MockHeadlinesPage/i);
+    expect(headlinesPage).toBeInTheDocument();
   })
 
 })

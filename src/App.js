@@ -48,7 +48,7 @@ function App() {
   const getArticles = useCallback(async () => {
     try {
       const res = await axios.get(apiUrl);
-      if (res.data) {
+      if (res?.data) {
         const articlesFound = res.data.response.results;
         return filterArticleKeys(replaceArticleIds(articlesFound));
       }

@@ -1,9 +1,20 @@
-import { render, screen, waitFor } from '@testing-library/react';
+import { render, screen } from '@testing-library/react';
+import { mockArticles } from '../utils/sampleArticles.json';
 import { act } from 'react-dom/test-utils';
 import App from '../App';
-import { mockArticles } from '../utils/sampleArticles.json';
+import axios from 'axios';
 
-jest.mock('axios', () => jest.fn(() => Promise.resolve(mockArticles)));
+jest.mock('axios');
+jest.mock('../Components/HeadlinesPage', () => {
+  return () => {
+    return <span>MockHeadlinesPage</span>;
+  }
+})
+jest.mock('../Components/SummaryPage', () => {
+  return () => {
+    return <span>MockSummaryPage</span>;
+  }
+})
 
 
 describe(`App.js test suite`, () => {
@@ -12,16 +23,21 @@ describe(`App.js test suite`, () => {
   afterEach(() => {
   })
 
-  test('renders HeadlinesPage', () => {
-    act(() => {
+  test(`it should make a get request`, async () => {
+    const resolve = "successfully resolved";
+
+    await act(async () => {
+      axios.get.mockResolvedValueOnce(resolve);
+    });
+
+    await act(async () => {
+      /* fire events that update state */
       render(<App />);
-    })
+    });
 
-    const testApp = screen.getByText(/‘A bit pushed’: Enid Blyton letters reveal strain of work and motherhood/i);
+    expect(axios.get).toHaveBeenCalledTimes(1);
+  })
 
-    expect(testApp).toBeInTheDocument();
-    expect(testApp).toContainElement("h2");
-  });
 })
 
 

@@ -37,3 +37,15 @@ This will result in a `checker is not a function` error because the value is a s
 
 @media provides a nice of way of adapting the UI to different screen sizes
 
+### Technologies
+
+- React
+- Axios
+- Jest
+- React Testing Library
+- React Router
+- HTML
+- CSS
+- JSON
+- Javascript
+- Dotenv

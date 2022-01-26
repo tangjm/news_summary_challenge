@@ -64,23 +64,23 @@ function App() {
     <div className="App">
       <h1>Search for articles: </h1>
       <form onSubmit={e => {
+        e.preventDefault();
         const newQuery = [...query];
         newQuery[0] = articleTypeQuery;
         setQuery(newQuery);
-        e.preventDefault();
       }}>
         <label for="news-select">Search for news:</label>
         &nbsp;
         <select name="news-section" id="news-select" onChange={e => setArticleTypeQuery(e.target.value)}>
           <option value="" selected>--Please choose an option--</option>
-          <option value="world" onSelectk={e => setArticleTypeQuery(e.target.value)}>World</option>
-          <option value="politics" onSelect={e => setArticleTypeQuery(e.target.value)}>Politics</option>
-          <option value="sport" onSelect={e => setArticleTypeQuery(e.target.value)}>Sport</option>
-          <option value="business" onSelect={e => setArticleTypeQuery(e.target.value)}>Business</option>
-          <option value="media" onSelect={e => setArticleTypeQuery(e.target.value)}>Media</option>
-          <option value="culture" onSelect={e => setArticleTypeQuery(e.target.value)}>Culture</option>
-          <option value="education" onSelect={e => setArticleTypeQuery(e.target.value)}>Education</option>
-          <option value="music" onSelect={e => setArticleTypeQuery(e.target.value)}>Music</option>
+          <option value="world">World</option>
+          <option value="politics">Politics</option>
+          <option value="sport">Sport</option>
+          <option value="business">Business</option>
+          <option value="media">Media</option>
+          <option value="culture">Culture</option>
+          <option value="education">Education</option>
+          <option value="music">Music</option>
         </select>
         &nbsp;
         <input type="submit" value="Search" />

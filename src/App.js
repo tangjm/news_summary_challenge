@@ -7,6 +7,8 @@ import HeadlinesPage from './Components/HeadlinesPage';
 import SummaryPage from './Components/SummaryPage';
 
 function App() {
+  const [articleTypeQuery, setArticleTypeQuery] = useState(``)
+  const [query, setQuery] = useState(["world", "article", "thumbnail,bodyText"]);
   const [articles, setArticles] = useState([]);
 
   const jsonServer = `http://localhost:4000/data`;
@@ -14,7 +16,7 @@ function App() {
   // Guardian API
   const developerKey = process.env.REACT_APP_GUARDIAN_API_KEY;
   const baseUrl = `https://content.guardianapis.com`;
-  const [section, type, fields] = ["world", "article", "thumbnail,bodyText"];
+  const [section, type, fields] = query;
   const guardianApi = baseUrl.concat(
     "/search?api-key=" + developerKey +
     "&type=" + type +
@@ -24,14 +26,6 @@ function App() {
 
   const selectServer = [jsonServer, guardianApi];
   const apiUrl = selectServer[1];
-
-  // Formatting fetched data
-  const replaceArticleIds = articleArr => {
-    return articleArr.map(articleObj => {
-      const newId = articleObj.id.replace(/\//g, "");
-      return { ...articleObj, id: newId };
-    });
-  }
 
   const keysNeeded = useMemo(() => ["id", "webTitle", "webUrl", "fields"], []);
 
@@ -68,6 +62,30 @@ function App() {
 
   return (
     <div className="App">
+      <h1>Search for articles: </h1>
+      <form onSubmit={e => {
+        const newQuery = [...query];
+        newQuery[0] = articleTypeQuery;
+        setQuery(newQuery);
+        e.preventDefault();
+      }}>
+        <label for="news-select">Search for news:</label>
+        &nbsp;
+        <select name="news-section" id="news-select" onChange={e => setArticleTypeQuery(e.target.value)}>
+          <option value="" selected>--Please choose an option--</option>
+          <option value="world" onSelectk={e => setArticleTypeQuery(e.target.value)}>World</option>
+          <option value="politics" onSelect={e => setArticleTypeQuery(e.target.value)}>Politics</option>
+          <option value="sport" onSelect={e => setArticleTypeQuery(e.target.value)}>Sport</option>
+          <option value="business" onSelect={e => setArticleTypeQuery(e.target.value)}>Business</option>
+          <option value="media" onSelect={e => setArticleTypeQuery(e.target.value)}>Media</option>
+          <option value="culture" onSelect={e => setArticleTypeQuery(e.target.value)}>Culture</option>
+          <option value="education" onSelect={e => setArticleTypeQuery(e.target.value)}>Education</option>
+          <option value="music" onSelect={e => setArticleTypeQuery(e.target.value)}>Music</option>
+        </select>
+        &nbsp;
+        <input type="submit" value="Search" />
+      </form>
+      <br />
       <Router>
         <Switch>
           <Route exact path="/">
@@ -78,8 +96,16 @@ function App() {
           </Route>
         </Switch>
       </Router>
-    </div>
+    </div >
   );
+}
+
+// Formatting fetched data
+const replaceArticleIds = articleArr => {
+  return articleArr.map(articleObj => {
+    const newId = articleObj.id.replace(/\//g, "");
+    return { ...articleObj, id: newId };
+  });
 }
 
 export default App;

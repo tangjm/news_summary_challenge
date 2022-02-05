@@ -1,5 +1,5 @@
-# Meets all criteria bar the last one concerning animations
-
+### Meets all criteria bar the last one concerning animations
+- Deployed on Netlify
 ### **Installation steps**
 
 1. Fork and clone the forked version of this respository

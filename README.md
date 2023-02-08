@@ -2,7 +2,7 @@
 
 A front-end app displaying news headlines from the Guardian news website. This was a project for learning about React Hooks, especially the 'useEffect' hook and how we can use it to make asynchronous API calls. It was also a good opportunity to practice creating custom hooks.
 
-This project is currently deployed on Vercel.
+This project is currently deployed on Netlify.
 
 ### **Installation steps**
 

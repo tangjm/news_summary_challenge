@@ -22,7 +22,7 @@ REACT_APP_GUARDIAN_API_KEY=<your-API-key>
 ```
 
 - Open your terminal and `cd` to or make sure you're in the folder containing package.json
-- `serve -s build` to run the build
+- `npm start` to start the development server
 
 ### **Testing guide**
 

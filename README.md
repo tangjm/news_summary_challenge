@@ -1,5 +1,5 @@
 ### Meets all criteria bar the last one concerning animations
-- Deployed on Netlify
+- Deployed on Vercel 
 ### **Installation steps**
 
 1. Fork and clone the forked version of this respository
@@ -9,6 +9,13 @@
 - `npm i` to install the required dependencies
 
 3. To run the News Summary App
+
+- Apply for a Guardian API key here: https://open-platform.theguardian.com/access/
+- Create a .env file and add your API key to the file as follows.
+
+```bash
+REACT_APP_GUARDIAN_API_KEY=<your-API-key>
+```
 
 - Open your terminal and `cd` to or make sure you're in the folder containing package.json
 - `serve -s build` to run the build

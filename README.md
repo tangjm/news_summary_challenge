@@ -1,5 +1,9 @@
-### Meets all criteria bar the last one concerning animations
-- Deployed on Vercel 
+# Guardian News Summary App 
+
+A front-end app displaying news headlines from the Guardian news website. This was a project for learning about React Hooks, especially the 'useEffect' hook and how we can use it to make asynchronous API calls. It was also a good opportunity to practice creating custom hooks.
+
+This project is currently deployed on Vercel.
+
 ### **Installation steps**
 
 1. Fork and clone the forked version of this respository
